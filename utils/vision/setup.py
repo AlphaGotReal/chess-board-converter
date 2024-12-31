@@ -6,13 +6,13 @@ class BoundarySetupScreen:
 
         # basic config
         self.root.attributes("-fullscreen", True)
-        self.root.config(cursor="crosshair")  
+        self.root.config(cursor="crosshair")
         self.root.wait_visibility(self.root)
         self.root.attributes("-alpha", 0.2)
 
         # key bindings
         self.root.bind("<Escape>", lambda event : self.root.destroy())
-        self.root.bind("<ButtonPress-1>", self.handle_start) 
+        self.root.bind("<ButtonPress-1>", self.handle_start)
         self.root.bind("<B1-Motion>", self.handle_drag)
         self.root.bind("<ButtonRelease-1>", self.handle_end)
 
@@ -42,7 +42,7 @@ class BoundarySetupScreen:
             self.rectangle.place(x=event.x)
         if height < 0:
             self.rectangle.place(y=event.y)
-        
+
     def handle_end(self, event):
         self.end_corner = (event.x, event.y)
 
@@ -51,7 +51,7 @@ class BoundarySetupScreen:
         assert(self.start_corner is not None, "bruh??")
         assert(self.end_corner is not None, "bruh??")
 
-        top = min(self.start_corner[1], self.end_corner[1]) 
+        top = min(self.start_corner[1], self.end_corner[1])
         left = min(self.start_corner[0], self.end_corner[0])
         width = abs(self.start_corner[0] - self.end_corner[0])
         height = abs(self.start_corner[1] - self.end_corner[1])

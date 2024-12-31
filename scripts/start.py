@@ -15,24 +15,26 @@ from utils.vision.screen import LiveScreenRecorder
 from utils.chess.board import ChessBoard
 
 def main(args=None):
-#     computer = Stockfish(path="/usr/games/stockfish")
-#     return computer
-    
     setup_screen = BoundarySetupScreen()
     setup_screen.run()
-    
+
     dimensions: dict|None = None
     try:
         dimensions = setup_screen.parse_corners()
     except AssertionError as e:
         print(e)
-        return 
+        return
 
-    board = ChessBoard()
+    if (dimensions is None):
+        print("aborted")
+        return
 
-    recorder = LiveScreenRecorder(dimensions, echo=False)
+    board = ChessBoard(dimensions)
+
+    recorder = LiveScreenRecorder(dimensions, echo=True)
     for frame in recorder:
-        board._test(frame)
+        fen = board.from_screen(frame)
+        # print(fen)
 
 if __name__ == "__main__":
     _debug = main(sys.argv)
