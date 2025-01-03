@@ -8,7 +8,7 @@ class LiveScreenRecorder:
         self.echo = echo
         self.dimensions = dimensions
         self.screen_capture = mss.mss()
-        
+
     def __iter__(self):
         if (self.echo):
             self.prev_time = time.time_ns()
@@ -21,7 +21,7 @@ class LiveScreenRecorder:
             print(f"FPS = {1e9/(now - self.prev_time)}", end='\r')
             self.prev_time = now
 
-        image = self.screen_capture.grab(self.dimensions)        
+        image = self.screen_capture.grab(self.dimensions)
         frame = np.array(image)
         return frame
 

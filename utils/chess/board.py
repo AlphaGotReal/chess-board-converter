@@ -49,7 +49,7 @@ class ChessBoard:
         cv2.imshow(path, image)
         cv2.waitKey(0)
 
-    def from_screen(self, frame, from_white=True):
+    def from_screen(self, frame, white_view=True):
         board = np.zeros((8, 8), dtype=object)
         for r in range(8):
             for c in range(8):
@@ -75,31 +75,5 @@ class ChessBoard:
                 if (std < 100):
                     board[r, c] = "  "
 
-        # convert to fen notation
-        fen = ""
-        for r in range(8):
-            count = 0
-            for c in range(8):
-                if (board[r, c] == "  "):
-                    count += 1
-                    continue
-                else:
-                    if (count > 0):
-                        fen += str(count)
-                        count = 0
-                    piece = board[r, c][1]
-                    if (board[r, c][0] == 'w'):
-                        piece = piece.upper()
-                    fen += piece
-            if (count > 0):
-                fen += str(count)
-            fen += "/"
-
-        if not from_white:
-            fen = fen[::-1]
-
-        fen += f" {self.turn} {self.castling_rights} - 0 1"
-
-        return fen
-
+        return np.array(board)
 
